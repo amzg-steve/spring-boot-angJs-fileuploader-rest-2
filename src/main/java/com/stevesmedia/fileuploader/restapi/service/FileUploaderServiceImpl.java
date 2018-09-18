@@ -11,7 +11,7 @@ import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocMetaData;
 import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocument;
 
 /**
- * The service implementation to save, find and get documents from a File store. 
+ * The service implementation to save, find and get documents through a filesystem based storage. 
  * 
  * @author steves
  */
@@ -25,17 +25,17 @@ public class FileUploaderServiceImpl implements FileUploaderService, Serializabl
     
 	@Override
 	public FileDocMetaData save(FileDocument document) {
-		getDocDao().insert(document); 
+		docDao.insert(document); 
         return document.getMetadata();	}
 
 	@Override
 	public List<FileDocMetaData> findDocuments() {
-        return getDocDao().findFiles();
+        return docDao.findFiles();
 	}
 
 	@Override
 	public byte[] getDocumentFile(String id) {
-		FileDocument document = getDocDao().load(id);
+		FileDocument document = docDao.load(id);
         if(document!=null) {
             return document.getFileData();
         } else {
@@ -45,15 +45,7 @@ public class FileUploaderServiceImpl implements FileUploaderService, Serializabl
 	
 	@Override
 	public void deleteAll() {
-		getDocDao().deleteAll();
-	}
-
-	public FileUploaderServiceDao getDocDao() {
-		return docDao;
-	}
-
-	public void setDocDao(FileUploaderServiceDao docDao) {
-		this.docDao = docDao;
+		docDao.deleteAll();
 	}
 
 }

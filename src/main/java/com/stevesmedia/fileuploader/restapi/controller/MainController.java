@@ -51,7 +51,7 @@ public class MainController {
 	 * @throws Exception 
 	 */
 	@PostMapping(value = "/uploadfile")
-	public String handleFileUpload(@RequestParam("uploadfile") MultipartFile file ) throws Exception {
+	public String handleFileUpload(@RequestParam("file") MultipartFile file ) throws Exception {
 		
 		try {
 			if(file == null || file.isEmpty()) {
