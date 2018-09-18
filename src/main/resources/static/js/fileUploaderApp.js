@@ -19,10 +19,10 @@ app.directive('fileModel', [ '$parse', function($parse) {
 app.controller('fileUploadController', ['$scope', '$http', function($scope, $http){
     $scope.doUploadFile = function(){
        var file = $scope.uploadedFile;
-       var url = "/fileUploadApi/uploadfile";
+       var url = "/fileUploaderApi/uploadfile";
        
        var data = new FormData();
-       data.append('uploadfile', file);
+       data.append('file', file);
     
        var config = { transformRequest: angular.identity,
     	   					transformResponse: angular.identity,
@@ -39,7 +39,7 @@ app.controller('fileUploadController', ['$scope', '$http', function($scope, $htt
 
 app.controller('getFilesController', function($scope, $http) {
 	$scope.search = function() {
-		$http.get("/fileUploadApi/getallfiles").then(function (response) {
+		$http.get("/fileUploaderApi/files").then(function (response) {
 			$scope.metadataList = response.data;
 		}, function (response) {
 			alert(response.data);

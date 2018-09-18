@@ -44,7 +44,7 @@
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-default" ng-click="search()">Show Files</button>
-					<button type="submit" class="btn btn-default"><a href="/fileUploadApi/deleteAll">Delete Files</a></button>
+					<button type="submit" class="btn btn-default"><a href="/fileUploaderApi/files/deleteAll">Delete All Files</a></button>
 				</div>
 			</div>
 			<table id="table-6">
@@ -57,9 +57,9 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="metadata in metadataList">
-						<td><a href="/fileUploadApi/file/{{metadata.uuid}}">{{metadata.mfileName}}</a></td>
-						<td>{{metadata.mfileSize}}</td>
-						<td>{{metadata.mtimeStamp}}</td>
+						<td><a href="/fileUploaderApi/file/{{metadata.uuid}}">{{metadata.fileName}}</a></td>
+						<td>{{metadata.fileSize}}</td>
+						<td>{{metadata.timeStamp}}</td>
 					</tr>
 				</tbody>
 			</table>

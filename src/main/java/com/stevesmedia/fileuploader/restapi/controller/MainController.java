@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,16 +26,20 @@ import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocMetaData;
 import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocument;
 import com.stevesmedia.fileuploader.restapi.service.FileUploaderService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * REST web service for file uploading service.
  * All service calls are delegated to instances of {@link FileUploaderService}
  * 
- * /fileUploadApi/uploadfile?file={file}  				   Uplolad file by POST
+ * /fileUploaderApi/uploadfile?file={file}  				   Uplolad file by POST
  *   file: A file posted in a multipart request 
  * @author steves
  */
 @RestController
-@RequestMapping(value = "/fileUploadApi")
+@RequestMapping(value = "/fileUploaderApi")
+@Api(value = "document")
 public class MainController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -45,13 +50,14 @@ public class MainController {
 	/**
 	 * Adds a document to the file store.
 	 * 
-	 * Url: /fileUploadApi/uploadfile?file={file} [POST]
+	 * Url: /fileUploaderApi/uploadfile?file={file} [POST]
 	 * 
 	 * @param file A file posted in a multipart request
 	 * @return The meta data of the added document
 	 * @throws Exception 
 	 */
 	@PostMapping(value = "/uploadfile")
+	@ApiOperation(value = "operation to upload file to repo")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file ) throws Exception {
 		
 		try {
@@ -75,13 +81,13 @@ public class MainController {
 	/**
 	 * Finds document in the archive.
 	 * 
-	 * Url: /fileUploadApi/getallfiles [GET]
+	 * Url: /fileUploaderApi/files [GET]
 	 * 
 	 * @return A list of document meta data
 	 */
-	@GetMapping("/getallfiles")
+	@GetMapping("/files")
+	@ApiOperation(value = "operation to retrieve all files available at repo")
 	public HttpEntity<List<FileDocMetaData>> findDocuments() {
-		HttpHeaders httpHeaders = new HttpHeaders();
 		return new ResponseEntity<List<FileDocMetaData>>(fileUploaderService.findDocuments(),
 				new HttpHeaders(), HttpStatus.OK);
 	}
@@ -89,21 +95,28 @@ public class MainController {
 	/**
 	 * Returns the document file from the store with the given UUID.
 	 * 
-	 * Url: /fileUploadApi/file/{id} [GET]
+	 * Url: /fileUploaderApi/files/{uuid} [GET]
 	 * 
 	 * @param id The UUID of a document
 	 * @return The document file
 	 */
-	@RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
-	public HttpEntity<byte[]> getDocument(@PathVariable String id) {         
+	@GetMapping(value = "/files/{uuid}")
+	@ApiOperation(value = "operation to retrieve file based on id")
+	public HttpEntity<byte[]> getDocument(@PathVariable String uuid) {         
 
 		HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.IMAGE_JPEG);
-		return new ResponseEntity<byte[]>(fileUploaderService.getDocumentFile(id), httpHeaders, HttpStatus.OK);
+		return new ResponseEntity<byte[]>(fileUploaderService.getDocumentFile(uuid), httpHeaders, HttpStatus.OK);
 		
 	}
 	
-	@GetMapping("/deleteAll")
+	/**
+	 * Deletes all files from repo
+	 * 
+	 * Url: /fileUploaderApi/files/deleteAll [DELETE]
+	 */
+	@DeleteMapping("/files/deleteAll")
+	@ApiOperation(value = "operation to delete all files from repo")
 	public void deleteAllFiles() {
 		fileUploaderService.deleteAll();
 	}

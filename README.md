@@ -1,4 +1,4 @@
-# File-Store-Project
+# file-store-project-v2
 File upload and retrieval Spring Boot Rest based Service.
 =====================
 
@@ -7,16 +7,16 @@ A simple file system based archive with REST interface. An angularJS based web c
 The available Restful APIs as follows:
 
 * **Upload a file operation(max 2MB size):**
-*http://localhost:8787/fileUploadApi/uploadfile?file={filename.xxx} POST*
+*http://localhost:8787/fileUploaderApi/uploadfile?file={filename.xxx} POST*
 
 * **Retrive a file from filesystem by file id operation:**
-*http://localhost:8787/fileUploadApi/file/{uuid} GET*
+*http://localhost:8787/fileUploaderApi/files/{uuid} GET*
 
 * **Retrieve all files from store operation:**
-*http://localhost:8787/fileUploadApi/getallfiles GET*
+*http://localhost:8787/fileUploaderApi/files GET*
 
 * **Delete all files from filesystem operation:**
-*http://localhost:8787/fileUploadApi/deleteAll DELETE*
+*http://localhost:8787/files/deleteAll DELETE*
 
 How to Build and run ?
 -------------

@@ -57,7 +57,7 @@ public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderService
 			saveFileData(document);
 			saveMetaData(document);
 		} catch (IOException e) {
-			String message = "Failed inserting document";
+			String message = "Failed insert document action";
 			logger.error(message, e);
 			throw new RuntimeException(message, e);
 		}
