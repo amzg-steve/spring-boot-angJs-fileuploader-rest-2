@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,8 +37,8 @@ import com.stevesmedia.fileuploader.restapi.service.FileUploaderService;
 @RequestMapping(value = "/fileUploadApi")
 public class MainController {
 
-	private static final Logger LOG = Logger.getLogger(MainController.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	
 	@Autowired
 	FileUploaderService fileUploaderService;
 
@@ -62,7 +63,7 @@ public class MainController {
 			//get the uploaded filesize
 			String fileSize = FileUtils.byteCountToDisplaySize(file.getSize());
 			FileDocument document = new FileDocument(file.getBytes(), file.getOriginalFilename(), timeStamp.toString(), fileSize );
-			getFileUploaderService().save(document);
+			fileUploaderService.save(document);
 			
 			return "You have successfully uploaded file: " + file.getOriginalFilename();
 			
@@ -81,8 +82,8 @@ public class MainController {
 	@GetMapping("/getallfiles")
 	public HttpEntity<List<FileDocMetaData>> findDocuments() {
 		HttpHeaders httpHeaders = new HttpHeaders();
-		return new ResponseEntity<List<FileDocMetaData>>(getFileUploaderService().findDocuments(),
-				httpHeaders,HttpStatus.OK);
+		return new ResponseEntity<List<FileDocMetaData>>(fileUploaderService.findDocuments(),
+				new HttpHeaders(), HttpStatus.OK);
 	}
 
 	/**
@@ -98,20 +99,13 @@ public class MainController {
 
 		HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.IMAGE_JPEG);
-		return new ResponseEntity<byte[]>(getFileUploaderService().getDocumentFile(id), httpHeaders, HttpStatus.OK);
+		return new ResponseEntity<byte[]>(fileUploaderService.getDocumentFile(id), httpHeaders, HttpStatus.OK);
 		
 	}
 	
 	@GetMapping("/deleteAll")
 	public void deleteAllFiles() {
-		getFileUploaderService().deleteAll();
-	}
-	public FileUploaderService getFileUploaderService() {
-		return fileUploaderService;
-	}
-
-	public void setFileUploaderService(FileUploaderService fileUploaderService) {
-		this.fileUploaderService = fileUploaderService;
+		fileUploaderService.deleteAll();
 	}
 
 }

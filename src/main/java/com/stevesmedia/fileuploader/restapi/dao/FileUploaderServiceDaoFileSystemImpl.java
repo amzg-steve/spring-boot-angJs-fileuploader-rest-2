@@ -17,20 +17,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
 import javax.annotation.PostConstruct;
-import org.springframework.stereotype.Service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.FileSystemUtils;
 
 import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocMetaData;
 import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocument;
 
-@Service("docDao")
+@Repository
 public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderServiceDao, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = Logger.getLogger(FileUploaderServiceDaoFileSystemImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(FileUploaderServiceDaoFileSystemImpl.class);
 
 	public static final String ROOT_DIR = "fileStore";
 	public static final String METADATA_FILENAME = "metadata.properties";
@@ -44,6 +45,7 @@ public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderService
 		FileSystemUtils.deleteRecursively(new File(ROOT_DIR));
 		createDirectory(ROOT_DIR);
 	}
+	
 	/**
 	 * Inserts a file in the file system store by creating a folder with uuid of file
 	 * A properties file is also created with metadata.
@@ -56,7 +58,7 @@ public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderService
 			saveMetaData(document);
 		} catch (IOException e) {
 			String message = "Failed inserting document";
-			LOG.error(message, e);
+			logger.error(message, e);
 			throw new RuntimeException(message, e);
 		}
 	}
@@ -70,7 +72,7 @@ public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderService
 			return findInFileSystem();
 		} catch (IOException e) {
 			String message = "Failed to find file";
-			LOG.error(message, e);
+			logger.error(message, e);
 			throw new RuntimeException(message, e);
 		}
 	}
@@ -84,7 +86,7 @@ public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderService
 			return loadFromFileSystem(uuid);
 		} catch (IOException e) {
 			String message = "Failed loading document id: " + uuid;
-			LOG.error(message, e);
+			logger.error(message, e);
 			throw new RuntimeException(message, e);
 		}
 	}
@@ -113,7 +115,7 @@ public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderService
 
 	private void saveFileData(FileDocument document) throws IOException {
 		String path = getDirectoryPath(document);
-		BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(new File(path), document.getMfileName())));
+		BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(new File(path), document.getFileName())));
 		stream.write(document.getFileData());
 		stream.close();
 	}
@@ -190,7 +192,7 @@ public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderService
     private String getFilePath(FileDocMetaData metadata) {
         String dirPath = getDirectoryPath(metadata.getUuid());
         StringBuilder sb = new StringBuilder();
-        sb.append(dirPath).append(File.separator).append(metadata.getMfileName());
+        sb.append(dirPath).append(File.separator).append(metadata.getFileName());
         return sb.toString();
     }
 }

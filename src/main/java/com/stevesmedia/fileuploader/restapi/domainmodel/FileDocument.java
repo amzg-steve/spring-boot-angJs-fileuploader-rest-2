@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Properties;
 
 /**
- * document from an archive {@link FileUploaderService}
+ * Document from an archive {@link FileUploaderService}
  * @author steves
  */
 public class FileDocument extends FileDocMetaData implements Serializable {
@@ -23,7 +23,7 @@ public class FileDocument extends FileDocMetaData implements Serializable {
     }
     
     public FileDocument(FileDocMetaData metadata) {
-        super(metadata.getUuid(), metadata.getMfileName(), metadata.getMtimeStamp(), metadata.getMfileSize() );
+        super(metadata.getUuid(), metadata.getFileName(), metadata.getTimeStamp(), metadata.getFileSize());
     }
 
     public byte[] getFileData() {
@@ -34,7 +34,7 @@ public class FileDocument extends FileDocMetaData implements Serializable {
     }
     
     public FileDocMetaData getMetadata() {
-        return new FileDocMetaData(getUuid(), getMfileName(), getMtimeStamp(), getMfileSize());
+        return new FileDocMetaData(getUuid(), getFileName(), getTimeStamp(), getFileSize());
     }
     
 }

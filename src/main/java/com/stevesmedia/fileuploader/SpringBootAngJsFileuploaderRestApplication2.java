@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public class SpringBootAngJsFileuploaderRestApplication {
+public class SpringBootAngJsFileuploaderRestApplication2 {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootAngJsFileuploaderRestApplication.class, args);
+		SpringApplication.run(SpringBootAngJsFileuploaderRestApplication2.class, args);
 	}
 }
