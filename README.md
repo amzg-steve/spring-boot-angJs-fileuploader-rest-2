@@ -18,8 +18,11 @@ The available Restful APIs as follows:
 * **Delete all files from filesystem operation:**
 *http://localhost:8787/files/deleteAll DELETE*
 
-* **Swagger:**
+* **Swagger ui:**
 *http://localhost:8787/swagger-ui.html*
+
+* **Swagger default:**
+*http://localhost:8787/v2/api-docs*
 
 How to Build and run ?
 -------------
