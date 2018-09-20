@@ -16,7 +16,7 @@ The available Restful APIs as follows:
 *http://localhost:8787/fileUploaderApi/files GET*
 
 * **Delete all files from filesystem operation:**
-*http://localhost:8787/files/deleteAll DELETE*
+*http://localhost:8787/fileUploaderApi/files/deleteAll DELETE*
 
 * **Swagger ui:**
 *http://localhost:8787/swagger-ui.html*

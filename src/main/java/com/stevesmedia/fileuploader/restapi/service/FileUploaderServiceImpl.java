@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 
 import com.stevesmedia.fileuploader.restapi.dao.FileUploaderServiceDao;
@@ -44,8 +45,8 @@ public class FileUploaderServiceImpl implements FileUploaderService, Serializabl
 	}
 	
 	@Override
-	public void deleteAll() {
-		docDao.deleteAll();
+	public HttpEntity<String> deleteAll() {
+		return docDao.deleteAllFiles();
 	}
 
 }
