@@ -85,7 +85,7 @@ public class MainController {
 	 * 
 	 * @return A list of document meta data
 	 */
-	@GetMapping("/files")
+	@GetMapping(value="/files",  produces= {"application/json"})
 	@ApiOperation(value = "operation to retrieve all files available at repo")
 	public HttpEntity<List<FileDocMetaData>> retrieveDocuments() {
 		return new ResponseEntity<List<FileDocMetaData>>(fileUploaderService.findDocuments(),
@@ -115,7 +115,7 @@ public class MainController {
 	 * 
 	 * Url: /fileUploaderApi/files/deleteAll [DELETE]
 	 */
-	@DeleteMapping("/files/deleteAll")
+	@DeleteMapping(value="/files/deleteAll")
 	@ApiOperation(value = "operation to delete all files from repo")
 	public HttpEntity<String> deleteAllFiles() {
 	

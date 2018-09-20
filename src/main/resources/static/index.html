@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>FileUploader Api Client</title>
-		<meta charset="utf8" />
-		<link rel="stylesheet" href="styles/styles.css">
-		<!-- AngularJS v1.6.4 -->
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-		<script src="/js/fileUploaderApp.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<!-- Bootstrap stylesheet v 3.3.7-->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-	</head>
-	<body class="container" ng-app="springBootFileUploaderApp">
-		<div id="wrap">
-			<div id="header">
-				<h1>FileUploader Store</h1>
-			</div>
-			<div ng-controller="fileUploadController">
-				<b>Upload Files:</b>
-				<form class="form-horizontal">
+<head>
+<title>FileUploader Api Client</title>
+<meta charset="utf8" />
+<link rel="stylesheet" href="styles/styles.css">
+<!-- AngularJS v1.6.4 -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="/js/fileUploaderApp.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Bootstrap stylesheet v 3.3.7-->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+</head>
+<body class="container" ng-app="springBootFileUploaderApp">
+	<div id="wrap">
+		<div id="header">
+			<h1>FileUploader Store</h1>
+		</div>
+		<div ng-controller="fileUploadController">
+			<b>Upload Files:</b>
+			<form class="form-horizontal">
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="uploadfile">Upload</label>
 					<div class="col-sm-5">
@@ -29,8 +33,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default"
-							ng-click="doUploadFile()">Upload</button>
+						<button type="submit" class="btn btn-default" ng-click="doUploadFile()">Upload File</button>
 					</div>
 				</div>
 			</form>
@@ -40,12 +43,16 @@
 			</div>
 		</div>
 		<div ng-controller="getFilesController">
-			<b>Documents Found:</b>
+			<b>Documents Available:</b>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-default" ng-click="search()">Show Files</button>
-					<button type="submit" class="btn btn-default"><a href="/fileUploaderApi/files/deleteAll">Delete All Files</a></button>
+					<button type="submit" class="btn btn-default" ng-click="deletefiles(); search()">Delete All Files</button>
 				</div>
+			</div>
+			<br />
+			<div class="col-sm-offset-2">
+				<p ng-bind="deleteResult"></p>
 			</div>
 			<table id="table-6">
 				<thead>
