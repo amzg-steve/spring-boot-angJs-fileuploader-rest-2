@@ -49,10 +49,10 @@ public class FileUploaderServiceDaoFileSystemImpl implements FileUploaderService
 		
 		if (FileSystemUtils.deleteRecursively(new File(ROOT_DIR))) {
 			createDirectory(ROOT_DIR);
-			return new ResponseEntity<String>("Files deleted", new HttpHeaders(), HttpStatus.OK);
+			return new ResponseEntity<String>("Files deleted", HttpStatus.OK);
 			
 		} else {
-			return new ResponseEntity<String>("File deletion action failed", new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("File deletion action failed", HttpStatus.INTERNAL_SERVER_ERROR);
 
 		}
 	}

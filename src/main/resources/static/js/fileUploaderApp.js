@@ -16,7 +16,7 @@ app.directive('fileModel', [ '$parse', function($parse) {
 	};
 } ]);
 
-app.controller('fileUploadController', ['$scope', '$http', function($scope, $http){
+app.controller('fileUploadController', ['$scope', '$http', function($scope, $http) {
     $scope.doUploadFile = function(){
        var file = $scope.uploadedFile;
        var url = "/fileUploaderApi/uploadfile";
@@ -37,12 +37,29 @@ app.controller('fileUploadController', ['$scope', '$http', function($scope, $htt
     };
 }]);
 
-app.controller('getFilesController', function($scope, $http) {
+app.controller('getFilesController', ['$scope', '$http', function($scope, $http) {
 	$scope.search = function() {
+		console.log("Stmt#1");
 		$http.get("/fileUploaderApi/files").then(function (response) {
 			$scope.metadataList = response.data;
-		}, function (response) {
-			alert(response.data);
+		}, function (err) {
+			alert(err.data);
 		});
+		console.log("Stmt#2");
+
 	};
-});
+	
+	$scope.deletefiles = function() {
+		$http.delete("/fileUploaderApi/files/deleteAll").then(function (response) {
+			$scope.deleteResult = response.data;
+			console.log("Stmt#4");
+			console.log(response);
+		}, function (err) {
+			//$scope.deleteResult = err.data;
+			console.log("Stmt#5");
+			console.log(err);
+		});
+		$scope.deleteResult = "Delete operation completed";
+		console.log($scope.deleteResult);
+	};
+}]);
