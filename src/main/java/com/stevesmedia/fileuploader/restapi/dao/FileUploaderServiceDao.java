@@ -2,6 +2,8 @@ package com.stevesmedia.fileuploader.restapi.dao;
 
 import java.util.List;
 
+import org.springframework.http.HttpEntity;
+
 import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocMetaData;
 import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocument;
 
@@ -30,7 +32,7 @@ public interface FileUploaderServiceDao {
 	 */
 	FileDocument load(String uuid);
 	
-	void deleteAll();
+	HttpEntity<String> deleteAllFiles();
 
 }
 

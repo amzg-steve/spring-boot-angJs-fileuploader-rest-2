@@ -2,6 +2,8 @@ package com.stevesmedia.fileuploader.restapi.service;
 
 import java.util.List;
 
+import org.springframework.http.HttpEntity;
+
 import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocMetaData;
 import com.stevesmedia.fileuploader.restapi.domainmodel.FileDocument;
 
@@ -32,5 +34,5 @@ public interface FileUploaderService {
 	 */
 	byte[] getDocumentFile(String id);
 	
-	void deleteAll();
+	HttpEntity<String> deleteAll();
 }
