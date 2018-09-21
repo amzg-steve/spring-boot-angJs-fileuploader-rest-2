@@ -26,9 +26,8 @@
 			<form class="form-horizontal">
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="uploadfile">Upload</label>
-					<div class="col-sm-5">
-						<input class="form-control" type="file" file-model="uploadedFile"
-							placeholder="Upload File"></input>
+					<div class="col-sm-8">
+						<input class="form-control" type="file" file-model="uploadedFile" placeholder="Upload File"></input>
 					</div>
 				</div>
 				<div class="form-group">
@@ -43,7 +42,7 @@
 			</div>
 		</div>
 		<div ng-controller="getFilesController">
-			<b>Documents Available:</b>
+			<b>Files Available:</b>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-default" ng-click="search()">Show Files</button>
@@ -51,7 +50,7 @@
 				</div>
 			</div>
 			<br />
-			<div class="col-sm-offset-2">
+			<div class="col-sm-offset-2 col-sm-10">
 				<p ng-bind="deleteResult"></p>
 			</div>
 			<table id="table-6">
@@ -64,7 +63,9 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="metadata in metadataList">
-						<td><a href="/fileUploaderApi/file/{{metadata.uuid}}">{{metadata.fileName}}</a></td>
+						<td>
+							<a target="_self" href="/fileUploaderApi/files/{{metadata.uuid}}" download="{{metadata.fileName}}">{{metadata.fileName}}</a>
+						</td>
 						<td>{{metadata.fileSize}}</td>
 						<td>{{metadata.timeStamp}}</td>
 					</tr>
